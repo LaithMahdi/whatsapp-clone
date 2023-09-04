@@ -44,6 +44,5 @@ class HomeControllerImpl extends HomeController
 
   selectPopMenu(String? value) {
     popUpMenu = value!;
-    print(value);
   }
 }
