@@ -1,3 +1,4 @@
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whatsapp_clone/core/constant/app_color.dart';
@@ -12,6 +13,7 @@ class ChatDetailScreen extends StatelessWidget {
     //Get.lazyPut(() => ChatDetailControllerImpl());
     ChatDetailControllerImpl controller = Get.put(ChatDetailControllerImpl());
     return Scaffold(
+      backgroundColor: AppColor.blueGrey,
       appBar: AppBar(
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.videocam)),
@@ -29,7 +31,7 @@ class ChatDetailScreen extends StatelessWidget {
         ],
         leadingWidth: AppSize.screenWidth! / 6,
         leading: InkWell(
-          onTap: () {},
+          onTap: () => controller.back(),
           child: Row(children: [
             const Icon(Icons.arrow_back, size: 24),
             CircleAvatar(
@@ -62,7 +64,104 @@ class ChatDetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Text(controller.chat.name),
+      body: Container(
+        width: AppSize.screenWidth,
+        height: AppSize.screenHeight,
+        color: Colors.transparent,
+        child: WillPopScope(
+          onWillPop: () => controller.onWillPop(),
+          child: Stack(
+            children: [
+              ListView(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 2, right: 2, bottom: 10),
+                          width: AppSize.screenWidth! - 60,
+                          child: GetBuilder<ChatDetailControllerImpl>(
+                            builder: (controller) => TextFormField(
+                              controller: controller.message,
+                              focusNode: controller.focusNode,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 5,
+                              minLines: 1,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: AppColor.white,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 15),
+                                  hintText: "Type a message",
+                                  prefixIcon: IconButton(
+                                      onPressed: () =>
+                                          controller.showEmojiKeyborad(),
+                                      icon: const Icon(Icons.emoji_emotions)),
+                                  suffixIcon: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.attach_file),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.camera_alt),
+                                      )
+                                    ],
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(25))),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 3, right: 3, bottom: 10),
+                          child: CircleAvatar(
+                            radius: 25,
+                            backgroundColor: AppColor.second,
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.mic,
+                                    color: AppColor.white)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    GetBuilder<ChatDetailControllerImpl>(
+                      builder: (controller) => controller.isEmojiShow
+                          ? const CustomEmoji()
+                          : const SizedBox(),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomEmoji extends GetView<ChatDetailControllerImpl> {
+  const CustomEmoji({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: AppSize.screenHeight! * .35,
+      child: EmojiPicker(
+        onEmojiSelected: (category, emoji) {
+          controller.onEmojiSelected(category, emoji);
+        },
+      ),
     );
   }
 }
