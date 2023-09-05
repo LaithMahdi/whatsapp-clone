@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:whatsapp_clone/view/calls/call_screen.dart';
-import 'package:whatsapp_clone/view/camera/camera_screen.dart';
-import 'package:whatsapp_clone/view/chats/chat_screen.dart';
-import 'package:whatsapp_clone/view/status/status_screen.dart';
+import 'package:whatsapp_clone/view/screens/calls/call_screen.dart';
+import 'package:whatsapp_clone/view/screens/camera/camera_screen.dart';
+import 'package:whatsapp_clone/view/screens/chats/chat_screen.dart';
+import 'package:whatsapp_clone/view/screens/status/status_screen.dart';
 
 abstract class HomeController extends GetxController {}
 

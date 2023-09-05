@@ -31,12 +31,14 @@ class CustomChatCard extends StatelessWidget {
         children: [
           const Icon(Icons.done_all, size: 16, color: AppColor.blueGrey),
           const HorizintalSpacer(0.4),
-          Text(chatModel.message,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.normal,
-                  color: AppColor.blueGrey)),
+          Flexible(
+            child: Text(chatModel.message,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.normal,
+                    color: AppColor.blueGrey)),
+          ),
         ],
       ),
       trailing: Text(

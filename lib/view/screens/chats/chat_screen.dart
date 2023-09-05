@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../chat/chat_controller.dart';
-import '../../data/data source/chat_list.dart';
-import '../widgets/chats/custom_chat_card.dart';
+import '../../../controllers/chat/chat_controller.dart';
+import '../../../data/data source/chat_list.dart';
+import '../../widgets/chats/custom_chat_card.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -12,7 +12,7 @@ class ChatScreen extends StatelessWidget {
     ChatControllerImpl controller = Get.put(ChatControllerImpl());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => controller.goContactScreen(),
         shape: const CircleBorder(),
         child: const Icon(Icons.chat),
       ),
