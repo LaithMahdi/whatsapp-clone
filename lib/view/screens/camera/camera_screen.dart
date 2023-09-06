@@ -20,16 +20,25 @@ class CameraScren extends StatelessWidget {
         height: AppSize.screenHeight,
         child: Stack(
           children: [
-            FutureBuilder(
-              future: controller.cameraVaue,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return CameraPreview(controller.cameraController);
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
+            GetBuilder<CameraControllerImpl>(
+              builder: (controller) => FutureBuilder(
+                future: controller.cameraValue,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return CameraPreview(controller.cameraController);
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
             ),
+
+            // GetBuilder<CameraControllerImpl>(
+            //   builder: (controller) => controller.cameraValue != null
+            //       ? CameraPreview(controller.cameraController)
+            //       : const Center(child: CircularProgressIndicator()),
+            // ),
+
             Positioned(
               bottom: 0,
               child: Container(

@@ -8,7 +8,7 @@ abstract class CustomCameraController extends GetxController {}
 
 class CameraControllerImpl extends CustomCameraController {
   late CameraController _cameraController;
-  late Future<void> cameraVaue;
+  late Future<void> cameraValue;
   late XFile _path;
   bool _isRecording = false;
   bool _isOpenFlash = false;
@@ -32,11 +32,16 @@ class CameraControllerImpl extends CustomCameraController {
 
   changePositionOfCamera() {
     _isFrontCamera = !_isFrontCamera;
-    update();
+
     int isPosCamera = _isFrontCamera ? 0 : 1;
-    _cameraController =
-        CameraController(cameras[isPosCamera], ResolutionPreset.high);
-    cameraVaue = _cameraController.initialize();
+
+    _cameraController = CameraController(
+        cameras[isPosCamera], ResolutionPreset.high,
+        imageFormatGroup: ImageFormatGroup.jpeg);
+
+    cameraValue = _cameraController.initialize();
+
+    update();
   }
 
   takePhotoWithCamera() async {
