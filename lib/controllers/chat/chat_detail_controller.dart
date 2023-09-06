@@ -2,6 +2,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whatsapp_clone/data/model/chat_model.dart';
+import 'package:socket_io_client/socket_io_client.dart' as Io;
 
 abstract class ChatDetailController extends GetxController {}
 
@@ -11,6 +12,7 @@ class ChatDetailControllerImpl extends ChatDetailController {
   late String _popMenu;
   late FocusNode _focusNode;
   late TextEditingController _message;
+  late Io.Socket socket;
   final List<String> _popMenuItems = [
     "View contact",
     "Media, links, and docs",
@@ -78,6 +80,7 @@ class ChatDetailControllerImpl extends ChatDetailController {
     _chat = Get.arguments["chat"];
     _popMenu = popMenuItems.first;
     _message = TextEditingController();
+    connect();
     super.onInit();
   }
 
@@ -107,5 +110,19 @@ class ChatDetailControllerImpl extends ChatDetailController {
       Get.back();
     }
     return Future.value(false);
+  }
+
+  void connect() {
+    socket = Io.io("http://192.168.1.103:8080/", {
+      "transports": ['websocket'],
+      "autoConnect": false
+    });
+    socket.connect();
+    socket.onConnect((data) => print("user connected"));
+  }
+
+  sendMessge() {
+    socket.emit("msg", {"msg": message.text});
+    message.clear();
   }
 }

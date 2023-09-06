@@ -10,7 +10,6 @@ abstract class VideoViewController extends GetxController {}
 
 class VideoViewControllerImpl extends VideoViewController {
   late XFile _path;
-  late bool _video;
 
   late VideoPlayerController _playerController;
   List<Map<String, dynamic>> headersItems = [

@@ -11,13 +11,16 @@ class CameraControllerImpl extends CustomCameraController {
   late Future<void> cameraVaue;
   late XFile _path;
   bool _isRecording = false;
+  bool _isOpenFlash = false;
+  bool _isFrontCamera = false;
 
   CameraController get cameraController => _cameraController;
   bool get isRecording => _isRecording;
+  bool get isOpenFlash => _isOpenFlash;
+  bool get isFrontCamera => _isFrontCamera;
   @override
   void onInit() {
-    _cameraController = CameraController(cameras[0], ResolutionPreset.high);
-    cameraVaue = _cameraController.initialize();
+    changePositionOfCamera();
     super.onInit();
   }
 
@@ -25,6 +28,15 @@ class CameraControllerImpl extends CustomCameraController {
   void onClose() {
     _cameraController.dispose();
     super.onClose();
+  }
+
+  changePositionOfCamera() {
+    _isFrontCamera = !_isFrontCamera;
+    update();
+    int isPosCamera = _isFrontCamera ? 0 : 1;
+    _cameraController =
+        CameraController(cameras[isPosCamera], ResolutionPreset.high);
+    cameraVaue = _cameraController.initialize();
   }
 
   takePhotoWithCamera() async {
@@ -38,8 +50,6 @@ class CameraControllerImpl extends CustomCameraController {
     _isRecording = true;
     update();
     await _cameraController.startVideoRecording();
-
-    //
   }
 
   stopRecordingVideo() async {
@@ -47,5 +57,15 @@ class CameraControllerImpl extends CustomCameraController {
     update();
     _path = await _cameraController.stopVideoRecording();
     Get.toNamed(AppRoute.videoView, arguments: {"path": _path});
+  }
+
+  openFlash() {
+    _isOpenFlash = !_isOpenFlash;
+    if (_isOpenFlash) {
+      _cameraController.setFlashMode(FlashMode.torch);
+    } else {
+      _cameraController.setFlashMode(FlashMode.off);
+    }
+    update();
   }
 }

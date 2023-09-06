@@ -47,7 +47,7 @@ class ChatDetailScreen extends StatelessWidget {
                             radius: 25,
                             backgroundColor: AppColor.second,
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () => controller.sendMessge(),
                                 icon: const Icon(Icons.mic,
                                     color: AppColor.white)),
                           ),

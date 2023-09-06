@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,17 +36,22 @@ class CameraScren extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 color: AppColor.black,
                 width: AppSize.screenWidth,
-                // height: AppSize.screenHeight!*.2,
                 child: Column(
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.flash_off,
-                                color: AppColor.white, size: 28)),
+                        GetBuilder<CameraControllerImpl>(
+                          builder: (controller) => IconButton(
+                              onPressed: () => controller.openFlash(),
+                              icon: Icon(
+                                  controller.isOpenFlash
+                                      ? Icons.flash_on
+                                      : Icons.flash_off,
+                                  color: AppColor.white,
+                                  size: 28)),
+                        ),
                         GestureDetector(
                             onTap: () => controller.takePhotoWithCamera(),
                             onLongPress: () => controller.takeVideoWithCamera(),
@@ -60,10 +67,15 @@ class CameraScren extends StatelessWidget {
                                   : const Icon(Icons.panorama_fish_eye,
                                       color: AppColor.white, size: 70),
                             )),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.flip_camera_ios,
-                                color: AppColor.white, size: 28)),
+                        GetBuilder<CameraControllerImpl>(
+                            builder: (controller) => IconButton(
+                                onPressed: () =>
+                                    controller.changePositionOfCamera(),
+                                icon: Transform.rotate(
+                                  angle: controller.isFrontCamera ? 0 : pi,
+                                  child: const Icon(Icons.flip_camera_ios,
+                                      color: AppColor.white, size: 28),
+                                ))),
                       ],
                     ),
                     const Padding(
