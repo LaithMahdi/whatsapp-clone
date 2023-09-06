@@ -7,4 +7,5 @@ class AppRoute {
   static const String group = "/group";
   static const String camera = "/camera";
   static const String cameraView = "/camera-view";
+  static const String videoView = "/video-view";
 }

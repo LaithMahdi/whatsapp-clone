@@ -45,10 +45,21 @@ class CameraScren extends StatelessWidget {
                             onPressed: () {},
                             icon: const Icon(Icons.flash_off,
                                 color: AppColor.white, size: 28)),
-                        InkWell(
+                        GestureDetector(
                             onTap: () => controller.takePhotoWithCamera(),
-                            child: const Icon(Icons.panorama_fish_eye,
-                                color: AppColor.white, size: 70)),
+                            onLongPress: () => controller.takeVideoWithCamera(),
+                            onLongPressUp: () =>
+                                controller.stopRecordingVideo(),
+                            child: GetBuilder<CameraControllerImpl>(
+                              builder: (controller) => controller.isRecording
+                                  ? const Icon(
+                                      Icons.radio_button_on,
+                                      color: Colors.red,
+                                      size: 70,
+                                    )
+                                  : const Icon(Icons.panorama_fish_eye,
+                                      color: AppColor.white, size: 70),
+                            )),
                         IconButton(
                             onPressed: () {},
                             icon: const Icon(Icons.flip_camera_ios,

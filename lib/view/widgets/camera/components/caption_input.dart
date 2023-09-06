@@ -7,6 +7,8 @@ class CaptionInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: 4,
+      minLines: 1,
       style: const TextStyle(color: AppColor.white, fontSize: 17),
       decoration: InputDecoration(
           contentPadding:
@@ -14,7 +16,7 @@ class CaptionInput extends StatelessWidget {
           filled: true,
           fillColor: AppColor.grey,
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
+              borderRadius: BorderRadius.circular(50),
               borderSide: BorderSide.none),
           hintText: "Add Caption...",
           hintStyle: const TextStyle(color: AppColor.white, fontSize: 17),
