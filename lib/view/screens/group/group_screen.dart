@@ -45,24 +45,27 @@ class GroupScreen extends StatelessWidget {
       body: Stack(
         children: [
           ListView.builder(
-              itemCount: controller.contacts.length + 1,
-              itemBuilder: (context, index) {
+            itemCount: controller.contacts.length + 1,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return GetBuilder<GroupControlllerImpl>(
+                    builder: (controller) =>
+                        VerticalSpacer(controller.groups.isEmpty ? 1 : 9));
+              } else {
                 ChatModel chat = controller.contacts[index - 1];
-                if (index + 1 == 0) {
-                  return VerticalSpacer(controller.groups.isEmpty ? 1 : 9);
-                } else {
-                  return GetBuilder<GroupControlllerImpl>(
-                    builder: (controller) => CustomContactItem(
-                      name: chat.name,
-                      secondeName: chat.status,
-                      isSelect: chat.isSelect,
-                      onTap: () {
-                        controller.changeCheck(chat);
-                      },
-                    ),
-                  );
-                }
-              }),
+                return GetBuilder<GroupControlllerImpl>(
+                  builder: (controller) => CustomContactItem(
+                    name: chat.name,
+                    secondeName: chat.status,
+                    isSelect: chat.isSelect,
+                    onTap: () {
+                      controller.changeCheck(chat);
+                    },
+                  ),
+                );
+              }
+            },
+          ),
           GetBuilder<GroupControlllerImpl>(
               builder: (controller) => controller.groups.isEmpty
                   ? const SizedBox()

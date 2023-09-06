@@ -28,15 +28,4 @@ class ContactControllerImpl extends ContactController {
   List<String> get popMenuItems => _popMenuItems;
   List<ChatModel> get contacts => _contacts;
   List<Map<String, dynamic>> get buttonsItems => _buttonsItems;
-
-  // changeCheck(ChatModel chat) {
-  //   if (chat.isSelect == false) {
-  //     chat.isSelect = true;
-  //     groups.add(chat);
-  //   } else {
-  //     chat.isSelect = false;
-  //     groups.remove(chat);
-  //   }
-  //   update();
-  // }
 }

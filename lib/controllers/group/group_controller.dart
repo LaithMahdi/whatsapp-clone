@@ -24,10 +24,11 @@ class GroupControlllerImpl extends GroupController {
     if (chat.isSelect == false) {
       chat.isSelect = true;
       groups.add(chat);
+      update();
     } else {
       chat.isSelect = false;
       groups.remove(chat);
+      update();
     }
-    update();
   }
 }
