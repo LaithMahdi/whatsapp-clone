@@ -17,9 +17,9 @@ class ChatScreen extends StatelessWidget {
         child: const Icon(Icons.chat),
       ),
       body: ListView.builder(
-        itemCount: chatList.length,
+        itemCount: controller.chats.length,
         itemBuilder: (context, index) => CustomChatCard(
-          chatModel: chatList[index],
+          chatModel: controller.chats[index],
           onTap: () => controller.goToDetailScreen(chatList[index]),
         ),
       ),

@@ -17,6 +17,7 @@ class MessageInput extends StatelessWidget {
               keyboardType: TextInputType.multiline,
               maxLines: 5,
               minLines: 1,
+              onChanged: (value) => controller.changeMessageToVoice(value),
               decoration: InputDecoration(
                   filled: true,
                   fillColor: AppColor.white,
