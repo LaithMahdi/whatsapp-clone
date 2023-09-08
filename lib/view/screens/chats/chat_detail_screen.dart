@@ -8,6 +8,7 @@ import 'package:whatsapp_clone/view/widgets/chats/message_input.dart';
 import 'package:whatsapp_clone/widgets/spacer/spacer.dart';
 import '../../../controllers/chat/chat_detail_controller.dart';
 import '../../../widgets/emoji/custom_emoji.dart';
+import '../../widgets/chats/chat detail/components/message_chat.dart';
 
 class ChatDetailScreen extends StatelessWidget {
   const ChatDetailScreen({super.key});
@@ -35,14 +36,20 @@ class ChatDetailScreen extends StatelessWidget {
               Expanded(
                   child: GetBuilder<ChatDetailControllerImpl>(
                 builder: (controller) => ListView.builder(
+                  controller: controller.scrollController,
                   itemBuilder: (context, index) {
+                    if (index == controller.messages.length) {
+                      return const VerticalSpacer(7);
+                    }
                     return MessageChat(
-                        isSender: controller.messages[index].type == "sender"
-                            ? true
-                            : false,
-                        message: controller.messages[index].message);
+                      isSender: controller.messages[index].type == "sender"
+                          ? true
+                          : false,
+                      message: controller.messages[index].message,
+                      date: controller.messages[index].date,
+                    );
                   },
-                  itemCount: controller.messages.length,
+                  itemCount: controller.messages.length + 1,
                 ),
               )),
               Align(
@@ -89,63 +96,6 @@ class ChatDetailScreen extends StatelessWidget {
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class MessageChat extends StatelessWidget {
-  final String message;
-  final bool isSender;
-  const MessageChat({super.key, required this.isSender, required this.message});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        constraints: BoxConstraints(maxWidth: AppSize.screenWidth! - 60),
-        decoration: BoxDecoration(
-          color: isSender ? AppColor.green10 : AppColor.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: const [
-            BoxShadow(
-                color: Colors.grey, blurRadius: 1, offset: Offset(1, 0.5)),
-          ],
-        ),
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 5, 60, 20),
-              child: Text(
-                message,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-            ),
-            Positioned(
-              bottom: 6,
-              right: 10,
-              child: isSender
-                  ? Row(
-                      children: [
-                        Text(
-                          "20:58",
-                          style:
-                              TextStyle(fontSize: 13, color: AppColor.grey600),
-                        ),
-                        const HorizintalSpacer(0.5),
-                        const Icon(Icons.done_all, size: 18)
-                      ],
-                    )
-                  : Text(
-                      "20:58",
-                      style: TextStyle(fontSize: 13, color: AppColor.grey600),
-                    ),
-            )
-          ],
         ),
       ),
     );

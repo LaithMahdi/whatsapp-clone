@@ -26,11 +26,11 @@ class CustomContactItem extends StatelessWidget {
           CircleAvatar(
             backgroundColor: isSecond == false || isSecond == null
                 ? AppColor.blueGrey200
-                : AppColor.third,
+                : AppColor.second,
             radius: 23,
             child: Icon(
                 isSecond == false || isSecond == null ? Icons.person : icon,
-                size: 30,
+                size: 25,
                 color: AppColor.white),
           ),
           isSecond == false || isSecond == null && isSelect == true
@@ -46,10 +46,22 @@ class CustomContactItem extends StatelessWidget {
               : const SizedBox(),
         ],
       ),
-      title: Text(
-        name,
-        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-      ),
+      title: name == "New contact"
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                Icon(Icons.qr_code, size: 26, color: AppColor.blueGrey)
+              ],
+            )
+          : Text(
+              name,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
       subtitle: isSecond == false || isSecond == null
           ? Text(
               secondeName!,

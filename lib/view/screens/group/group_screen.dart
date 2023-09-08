@@ -117,13 +117,13 @@ class AvatarCard extends StatelessWidget {
                   child:
                       const Icon(Icons.person, color: AppColor.white, size: 28),
                 ),
-                const Positioned(
+                Positioned(
                     bottom: 0,
                     right: 0,
                     child: CircleAvatar(
                       backgroundColor: AppColor.blueGrey,
                       radius: 11,
-                      child: Icon(
+                      child: const Icon(
                         Icons.clear,
                         size: 13,
                         color: AppColor.white,

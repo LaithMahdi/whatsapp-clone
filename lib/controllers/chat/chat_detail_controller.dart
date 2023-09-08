@@ -13,6 +13,7 @@ class ChatDetailControllerImpl extends ChatDetailController {
   late String _popMenu;
   late FocusNode _focusNode;
   late TextEditingController _message;
+  late ScrollController _scrollController;
   late Io.Socket socket;
   bool _isSend = false;
   late ChatModel _sender;
@@ -25,7 +26,7 @@ class ChatDetailControllerImpl extends ChatDetailController {
     "Wallpaper",
     "More"
   ];
-
+  //Getter
   ChatModel get chat => _chat;
   List<MessageModel> get messages => _messages;
   bool get isEmojiShow => _isEmojiShow;
@@ -35,6 +36,8 @@ class ChatDetailControllerImpl extends ChatDetailController {
   List<String> get popMenuItems => _popMenuItems;
   List<Map<String, dynamic>> get bottomSheetItems => _bottomSheetItems;
   bool get isSend => _isSend;
+  ScrollController get scrollController => _scrollController;
+  //
   final List<Map<String, dynamic>> _bottomSheetItems = [
     {
       "icon": Icons.insert_drive_file,
@@ -87,6 +90,7 @@ class ChatDetailControllerImpl extends ChatDetailController {
     _chat = Get.arguments["chat"];
     _popMenu = popMenuItems.first;
     _message = TextEditingController();
+    _scrollController = ScrollController();
     connectSocket();
     super.onInit();
   }
@@ -131,6 +135,8 @@ class ChatDetailControllerImpl extends ChatDetailController {
       socket.on("msg", (msg) {
         print(msg);
         setMessage(msg["message"], "destination");
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
         update();
       });
     });
@@ -140,17 +146,21 @@ class ChatDetailControllerImpl extends ChatDetailController {
   sendMessge() {
     setMessage(message.text, "sender");
     if (_isSend) {
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
       socket.emit("msg", {
         "message": message.text,
         "sender": _sender.id,
         "destination": _chat.id
       });
       message.clear();
+      _isSend = false;
     }
   }
 
   setMessage(String message, String type) {
-    MessageModel msg = MessageModel(message: message, type: type);
+    MessageModel msg =
+        MessageModel(message: message, type: type, date: DateTime.now());
     messages.add(msg);
     update();
   }

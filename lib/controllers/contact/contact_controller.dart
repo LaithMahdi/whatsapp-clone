@@ -16,12 +16,13 @@ class ContactControllerImpl extends ContactController {
   final List<ChatModel> groups = [];
   bool isSelect = false;
   final List<Map<String, dynamic>> _buttonsItems = [
-    {"name": "New contact", "icon": Icons.person_add, "function": () {}},
     {
       "name": "New group",
       "icon": Icons.group,
       "function": () => Get.toNamed(AppRoute.group)
     },
+    {"name": "New contact", "icon": Icons.person_add, "function": () {}},
+    {"name": "New community", "icon": Icons.groups, "function": () {}},
   ];
   final List<ChatModel> _contacts =
       chatList.where((element) => !element.isGroup).toList();

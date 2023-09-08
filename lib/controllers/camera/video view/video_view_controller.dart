@@ -10,12 +10,11 @@ abstract class VideoViewController extends GetxController {}
 
 class VideoViewControllerImpl extends VideoViewController {
   late XFile _path;
-
+  bool _isCompleted = false;
   late VideoPlayerController _playerController;
+
   List<Map<String, dynamic>> headersItems = [
     {"icon": EvaIcons.close, "function": () => Get.back()},
-    {"icon": Icons.hd, "function": () {}},
-    {"icon": Icons.crop_rotate, "function": () {}},
     {"icon": Icons.emoji_emotions_outlined, "function": () {}},
     {"icon": Icons.title, "function": () {}},
     {"icon": EvaIcons.edit, "function": () {}},
@@ -24,12 +23,22 @@ class VideoViewControllerImpl extends VideoViewController {
   void onInit() {
     _path = Get.arguments["path"];
     _playerController = VideoPlayerController.file(File(_path.path))
-      ..initialize().then((value) {});
+      ..initialize().then((_) {
+        _playerController.addListener(() {
+          if (_playerController.value.position >=
+              _playerController.value.duration) {
+            _isCompleted = true;
+            update();
+          }
+        });
+        update();
+      });
     super.onInit();
   }
 
   XFile get path => _path;
   VideoPlayerController get playerController => _playerController;
+  bool get isCompleted => _isCompleted;
 
   playVideo() {
     if (_playerController.value.isPlaying) {
@@ -38,5 +47,11 @@ class VideoViewControllerImpl extends VideoViewController {
       _playerController.play();
     }
     update();
+  }
+
+  @override
+  void onClose() {
+    _playerController.dispose();
+    super.onClose();
   }
 }

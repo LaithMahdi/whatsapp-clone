@@ -13,7 +13,6 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => controller.goContactScreen(),
-        shape: const CircleBorder(),
         child: const Icon(Icons.chat),
       ),
       body: ListView.builder(

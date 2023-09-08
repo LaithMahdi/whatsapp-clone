@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whatsapp_clone/controllers/contact/contact_controller.dart';
+import 'package:whatsapp_clone/core/constant/app_color.dart';
 import 'package:whatsapp_clone/data/model/chat_model.dart';
+import 'package:whatsapp_clone/widgets/spacer/spacer.dart';
 
 import '../../widgets/contact/components/custom_contact_item.dart';
 
@@ -41,6 +43,7 @@ class ContactScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          const VerticalSpacer(1),
           ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -54,6 +57,16 @@ class ContactScreen extends StatelessWidget {
                   isSelect: false,
                 );
               }),
+          Container(
+            margin: const EdgeInsets.fromLTRB(15, 15, 5, 10),
+            child: Text(
+              "Contacts on WhatsApp",
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.blueGrey),
+            ),
+          ),
           ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

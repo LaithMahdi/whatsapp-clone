@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:whatsapp_clone/core/constant/app_route.dart';
 import 'package:whatsapp_clone/data/model/chat_model.dart';
 import 'package:whatsapp_clone/view/screens/calls/call_screen.dart';
-import 'package:whatsapp_clone/view/screens/camera/camera_screen.dart';
 import 'package:whatsapp_clone/view/screens/chats/chat_screen.dart';
 import 'package:whatsapp_clone/view/screens/status/status_screen.dart';
 
@@ -14,9 +14,9 @@ class HomeControllerImpl extends HomeController
   late String popUpMenu;
   late List<ChatModel> _chats;
   late ChatModel _sender;
-  List<dynamic> tabs = [Icons.camera_alt, "chats", "status", "calls"];
+  List<dynamic> tabs = [Icons.groups, "chats", "status", "calls"];
   List<Widget> tabBarViews = const [
-    CameraScren(),
+    Text("groups"),
     ChatScreen(),
     StatusScreen(),
     CallScreen(),
@@ -52,4 +52,6 @@ class HomeControllerImpl extends HomeController
   selectPopMenu(String? value) {
     popUpMenu = value!;
   }
+
+  goToCameraScreen() => Get.toNamed(AppRoute.camera);
 }

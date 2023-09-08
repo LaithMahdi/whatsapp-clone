@@ -68,10 +68,11 @@ class MessageInput extends StatelessWidget {
                         },
                         icon: const Icon(Icons.attach_file),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.camera_alt),
-                      )
+                      !controller.isSend
+                          ? IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.camera_alt))
+                          : const SizedBox()
                     ],
                   ),
                   border: OutlineInputBorder(

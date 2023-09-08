@@ -14,6 +14,9 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(AppString.appName),
         actions: [
+          IconButton(
+              onPressed: () => controller.goToCameraScreen(),
+              icon: const Icon(Icons.camera_alt_rounded)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
           PopupMenuButton(
             onSelected: (value) => controller.selectPopMenu(value),

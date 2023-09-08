@@ -18,6 +18,7 @@ class CameraControllerImpl extends CustomCameraController {
   bool get isRecording => _isRecording;
   bool get isOpenFlash => _isOpenFlash;
   bool get isFrontCamera => _isFrontCamera;
+
   @override
   void onInit() {
     changePositionOfCamera();
@@ -73,4 +74,6 @@ class CameraControllerImpl extends CustomCameraController {
     }
     update();
   }
+
+  backToHome() => Get.back();
 }

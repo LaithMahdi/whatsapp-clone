@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Helvetica",
-        primaryColor: AppColor.primary,
+        primaryColor: AppColor.second,
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: AppColor.primary, foregroundColor: AppColor.white),
+            backgroundColor: AppColor.second, foregroundColor: AppColor.white),
         tabBarTheme: TabBarTheme(
             indicatorColor: AppColor.white,
             labelColor: AppColor.white,

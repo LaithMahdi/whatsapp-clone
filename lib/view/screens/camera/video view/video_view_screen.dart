@@ -39,9 +39,10 @@ class VideoViewScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: GetBuilder<VideoViewControllerImpl>(
                     builder: (controller) => HeaderButton(
-                      icon: !controller.playerController.value.isPlaying
-                          ? Icons.play_arrow
-                          : Icons.pause,
+                      icon: controller.playerController.value.isLooping ||
+                              !controller.isCompleted
+                          ? Icons.pause
+                          : Icons.play_arrow,
                       isVideo: true,
                       onPressed: () => controller.playVideo(),
                     ),
