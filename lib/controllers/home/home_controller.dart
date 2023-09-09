@@ -4,6 +4,7 @@ import 'package:whatsapp_clone/core/constant/app_route.dart';
 import 'package:whatsapp_clone/data/model/chat_model.dart';
 import 'package:whatsapp_clone/view/screens/calls/call_screen.dart';
 import 'package:whatsapp_clone/view/screens/chats/chat_screen.dart';
+import 'package:whatsapp_clone/view/screens/community/community_screen.dart';
 import 'package:whatsapp_clone/view/screens/status/status_screen.dart';
 
 abstract class HomeController extends GetxController {}
@@ -16,7 +17,7 @@ class HomeControllerImpl extends HomeController
   late ChatModel _sender;
   List<dynamic> tabs = [Icons.groups, "chats", "status", "calls"];
   List<Widget> tabBarViews = const [
-    Text("groups"),
+    CommunityScreen(),
     ChatScreen(),
     StatusScreen(),
     CallScreen(),

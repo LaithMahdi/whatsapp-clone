@@ -12,23 +12,42 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginController controller = Get.put(LoginController());
     return Scaffold(
-      body: ListView.separated(
-          padding: const EdgeInsets.only(top: 30),
-          itemCount: chatList.length - 15,
-          separatorBuilder: (context, index) => const VerticalSpacer(1),
-          itemBuilder: (context, index) => ListTile(
-                onTap: () => controller.goToHomeScreen(index),
-                leading: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.green.shade700,
-                  child: const Icon(Icons.person, color: AppColor.white),
-                ),
-                title: Text(
-                  chatList[index].name,
-                  style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w500),
-                ),
-              )),
+      body: ListView(
+        children: [
+          Container(
+            margin: const EdgeInsets.fromLTRB(15, 25, 30, 25),
+            child: const Text("Welcome to Login Screen",
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    color: AppColor.second)),
+          ),
+          Container(
+            margin: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+            child: Text("Please choisi user to connect to our app",
+                style: TextStyle(fontSize: 13, color: AppColor.blueGrey)),
+          ),
+          ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.only(top: 5),
+              itemCount: chatList.length - 15,
+              separatorBuilder: (context, index) => const VerticalSpacer(1),
+              itemBuilder: (context, index) => ListTile(
+                    onTap: () => controller.goToHomeScreen(index),
+                    leading: const CircleAvatar(
+                      radius: 20,
+                      backgroundColor: AppColor.second,
+                      child: Icon(Icons.person, color: AppColor.white),
+                    ),
+                    title: Text(
+                      chatList[index].name,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w500),
+                    ),
+                  )),
+        ],
+      ),
     );
   }
 }
